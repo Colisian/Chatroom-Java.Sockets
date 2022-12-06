@@ -32,7 +32,7 @@ public class Chatroom {
 
         }
 
-         public void closeServerSocket(){
+         public void closeServerSocket(){ // this method avoids nested try catches
             try{
                 if (serverSocket!= null){
                     serverSocket.close();
