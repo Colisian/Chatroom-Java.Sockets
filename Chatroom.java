@@ -37,7 +37,6 @@ public class Chatroom {
                 if (serverSocket!= null){
                     serverSocket.close();
                 }
-
             } catch (IOException e){
                 e.printStackTrace();
             }
