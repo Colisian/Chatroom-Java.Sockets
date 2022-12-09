@@ -59,10 +59,10 @@ public class ClientHandler implements Runnable{
 
     public void removeClientHandler (){
         clientHandlers.remove(this);
-        broadcastMessage(messageToSend: "SERVER: " + clientUsername + " has left chat!");
+        broadcastMessage("SERVER: " + clientUsername + " has left chat!");
     }
     public void closeChatroom(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter){
-        removeClienthandler();
+        removeClientHandler();
         try{
             if (bufferedReader != null){
                 bufferedReader.close();
