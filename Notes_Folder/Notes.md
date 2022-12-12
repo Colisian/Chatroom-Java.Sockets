@@ -20,3 +20,5 @@ try{
 }    
 
 (2) Nested try catch: When a try catch block is present in another try block then it is called the nested try catch block. Each time a try block does not have a catch handler for a particular exception, then the catch blocks of parent try block are inspected for that exception, if match is found that that catch block executes.
+
+(3) IO Exception: an exception that is thrown when an I/O error occurs at compile time when reading files, directories, and streams. It is also the base class of such exceptions which occur while reading or accessing files, directories and streams. Handled by try and catch blocks.
