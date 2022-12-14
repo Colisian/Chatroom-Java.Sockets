@@ -30,12 +30,13 @@ public class Client {
             bufferedWriter.newLine();
             bufferedWriter.flush();
 
-            Scanner scanner = new Scanner(System.in);
-            while (socket.isConnected()){
-                String sendMessage = scanner.nextLine();
-                bufferedWriter.write(username + ": " + sendMessage);
-                bufferedWriter.newLine();
-                bufferedWriter.flush();
+            try (Scanner scanner = new Scanner(System.in)) {
+                while (socket.isConnected()){
+                    String sendMessage = scanner.nextLine();
+                    bufferedWriter.write(username + ": " + sendMessage);
+                    bufferedWriter.newLine();
+                    bufferedWriter.flush();
+                }
             }
         }catch (IOException e){
             closeChatroom(socket, bufferedReader, bufferedWriter);
@@ -80,12 +81,13 @@ public class Client {
 
     public static void main(String[] args) throws UnknownHostException, IOException {
         
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter Usernane: ");
-        String username = scanner.nextLine();
-        Socket socket = new Socket("localhost", 1234);
-        Client client = new Client(socket, username);
-        client.listenForMessage();
-        client.sendMessage();
+        try (Scanner scanner = new Scanner(System.in)) {
+            System.out.println("Enter Usernane: ");
+            String username = scanner.nextLine();
+            Socket socket = new Socket("localhost", 1234);
+            Client client = new Client(socket, username);
+            client.listenForMessage();
+            client.sendMessage();
+        }
     }
 }
