@@ -8,10 +8,10 @@ import java.util.ArrayList;
 
 public class ClientHandler implements Runnable{
 
-    public static ArrayList<ClientHandler> clientHandlers = new ArrayList<>();
+    public static ArrayList<ClientHandler> clientHandlers = new ArrayList<>(); //Keeps track of all clients
     private Socket socket;
-    private BufferedReader buffererdReader;
-    private BufferedWriter bufferedWriter;
+    private BufferedReader buffererdReader; //Reads data that has been sent
+    private BufferedWriter bufferedWriter; // Sends data to client
     private String clientUsername;
     
     public ClientHandler(Socket socket){
@@ -21,7 +21,7 @@ public class ClientHandler implements Runnable{
             this.buffererdReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.clientUsername = buffererdReader.readLine();
             clientHandlers.add(this);
-            broadcastMessage("Server: " + clientUsername + "has entered the chat!");
+            broadcastMessage("Server: " + clientUsername + " has entered the chat!");
 
         } catch (IOException e) {
             closeChatroom(socket, buffererdReader, bufferedWriter);
@@ -32,7 +32,7 @@ public class ClientHandler implements Runnable{
     public void run() {
         String messageFromClient;
 
-        while (socket.isClosed()) {
+        while (socket.isConnected()) { //listening for messages. Runs on separte thread
             try{
             messageFromClient = buffererdReader.readLine();
             broadcastMessage(messageFromClient);
@@ -44,7 +44,7 @@ public class ClientHandler implements Runnable{
     }
 
     public void broadcastMessage(String messageToSend){
-        for (ClientHandler clientHandler : clientHandlers){
+        for (ClientHandler clientHandler : clientHandlers){ //broadcast message to each client for each clienthandler in arraylist there will 
             try{
                 if (!clientHandler.clientUsername.equals(clientUsername)){
                     clientHandler.bufferedWriter.write(messageToSend);
