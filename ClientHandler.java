@@ -48,8 +48,8 @@ public class ClientHandler implements Runnable{
             try{
                 if (!clientHandler.clientUsername.equals(clientUsername)){
                     clientHandler.bufferedWriter.write(messageToSend);
-                    clientHandler.bufferedWriter.newLine();
-                    clientHandler.bufferedWriter.flush();
+                    clientHandler.bufferedWriter.newLine(); //Tells server that client is done sending data 
+                    clientHandler.bufferedWriter.flush(); // removes requirment that the buffered stream must be full to send data
                 } 
             } catch(IOException e){
                 closeChatroom(socket, buffererdReader, bufferedWriter);

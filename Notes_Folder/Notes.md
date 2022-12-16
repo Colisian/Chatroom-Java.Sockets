@@ -1,6 +1,7 @@
 When a class implements a runable interface the instances of that class will be excuted by  aunique thread.
 To make a new thread you must create a thread object (ClientHandler clienthandler = new ClientHandler()) and pass in a runnable object (ClientHandler(socket))
 
+To Check that the Server is running, in powershell run "tnc localhost <port#>"
 
 
 Definitions:

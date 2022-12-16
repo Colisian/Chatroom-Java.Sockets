@@ -13,7 +13,7 @@ public class Client {
     private BufferedWriter bufferedWriter;
     private String username; 
 
-    public Client(Socket socket, String username) {
+    public Client(Socket socket, String username) { // communication with Server and ClientHandler 
         try {
             this.socket = socket;
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -24,25 +24,25 @@ public class Client {
         }
     }
 
-    public void sendMessage(){
+    public void sendMessage(){ // sends message to client handler
         try {
             bufferedWriter.write(username);
             bufferedWriter.newLine();
             bufferedWriter.flush();
 
-            try (Scanner scanner = new Scanner(System.in)) {
+            Scanner scanner = new Scanner(System.in);
                 while (socket.isConnected()){
                     String sendMessage = scanner.nextLine();
                     bufferedWriter.write(username + ": " + sendMessage);
                     bufferedWriter.newLine();
                     bufferedWriter.flush();
                 }
-            }
-        }catch (IOException e){
-            closeChatroom(socket, bufferedReader, bufferedWriter);
-            
+            } catch (IOException e){
+                closeChatroom(socket, bufferedReader, bufferedWriter);
         }
+            
     }
+    
     public void listenForMessage(){
         new Thread(new Runnable() {
             @Override
