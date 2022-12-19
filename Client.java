@@ -30,12 +30,13 @@ public class Client {
             bufferedWriter.newLine();
             bufferedWriter.flush();
 
-            Scanner scanner = new Scanner(System.in);
-                while (socket.isConnected()){
-                    String sendMessage = scanner.nextLine();
-                    bufferedWriter.write(username + ": " + sendMessage);
-                    bufferedWriter.newLine();
-                    bufferedWriter.flush();
+                try (Scanner scanner = new Scanner(System.in)) {
+                    while (socket.isConnected()){
+                        String sendMessage = scanner.nextLine();
+                        bufferedWriter.write(username + ": " + sendMessage);
+                        bufferedWriter.newLine();
+                        bufferedWriter.flush();
+                    }
                 }
             } catch (IOException e){
                 closeChatroom(socket, bufferedReader, bufferedWriter);
